@@ -198,5 +198,21 @@
     "pages": 561,
     "acquisition": "crawl",
     "checked_at": "2026-11-02T14:25:37.140812+00:00"
+  },
+  "rdhpcs": {
+    "repo": "NOAA-RDHPCS/noaa-rdhpcs.github.io",
+    "ref": "833f834a7afb3506c8e48c5261c89c68a2d55567",
+    "commit": "833f834a7afb3506c8e48c5261c89c68a2d55567",
+    "version": "snapshot-833f834a7afb",
+    "doc_dir": "source",
+    "exts": [
+      ".rst",
+      ".md"
+    ],
+    "licenses": [
+      "LICENSE"
+    ],
+    "version_basis": "Rolling main snapshot of NOAA-RDHPCS/noaa-rdhpcs.github.io, the Sphinx source of https://docs.rdhpcs.noaa.gov/ (the authoritative RDHPCS user documentation); the repository has no release tags, so the label is the commit and it is not release-certified; CC0-1.0 license retained beside the corpus; system-specific details (Hera, Jet, Gaea, Ursa, ...) change quickly, so verify against the live site before relying on them",
+    "checked_at": "2026-11-12T21:42:54.650101+00:00"
   }
 }

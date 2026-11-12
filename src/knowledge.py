@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 VERSION = '8.9.1'
 LIBRARIES = ('esmf','kokkos','kokkos-kernels','nws-hpc-standards','jedi','ccpp','ccpp-scm','pytorch','pytorch-forecasting','grib2io',
-             'dask','dask-jobqueue','ecflow','ufs-weather-model','mom6','cice','fv3','mpas','uwtools','fms')
+             'dask','dask-jobqueue','ecflow','ufs-weather-model','mom6','cice','fv3','mpas','uwtools','fms','rdhpcs')
 SCHEMA = '''
 CREATE TABLE meta(key TEXT PRIMARY KEY,value TEXT);
 CREATE TABLE units(id TEXT PRIMARY KEY, library TEXT, version TEXT, kind TEXT, title TEXT, source TEXT,

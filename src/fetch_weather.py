@@ -1,5 +1,5 @@
-"""Import Dask, dask-jobqueue, ecFlow, UFS, CICE, FV3 and MPAS documentation
-snapshots, and crawl the authoritative MOM6, uwtools and FMS sites, preserving
+"""Import Dask, dask-jobqueue, ecFlow, UFS, CICE, FV3, MPAS and RDHPCS
+documentation snapshots, and crawl the authoritative MOM6, uwtools and FMS sites, preserving
 other collections.
 
 Each project is a separate library. Documentation is imported from an immutable
@@ -136,6 +136,18 @@ SNAPSHOT = {
                           'documentation repository; not release-certified; corresponds to MPAS-Model 8.4.2; '
                           'the repository has no license file'),
     },
+    'rdhpcs': {
+        'repo': 'NOAA-RDHPCS/noaa-rdhpcs.github.io', 'ref': '833f834a7afb3506c8e48c5261c89c68a2d55567',
+        'commit': '833f834a7afb3506c8e48c5261c89c68a2d55567',
+        'version': 'snapshot-833f834a7afb', 'doc_dir': 'source', 'exts': ('.rst', '.md'),
+        'licenses': ['LICENSE'],
+        'version_basis': ('Rolling main snapshot of NOAA-RDHPCS/noaa-rdhpcs.github.io, the Sphinx source of '
+                          'https://docs.rdhpcs.noaa.gov/ (the authoritative RDHPCS user documentation); the '
+                          'repository has no release tags, so the label is the commit and it is not '
+                          'release-certified; CC0-1.0 license retained beside the corpus; system-specific '
+                          'details (Hera, Jet, Gaea, Ursa, ...) change quickly, so verify against the live '
+                          'site before relying on them'),
+    },
     'grib2io': {
         'repo': 'NOAA-MDL/grib2io', 'ref': 'v2.8.1', 'commit': None,
         'version': '2.8.1', 'doc_dir': 'docs', 'exts': ('.html',),
@@ -144,6 +156,11 @@ SNAPSHOT = {
                           'the tagged repository tree and linked to its resolved commit'),
     },
 }
+
+# Snapshot libraries without release tags: --latest follows this branch and labels the
+# result snapshot-<commit>. (The pinned `ref` may be the commit itself, so a rolling
+# branch moving on cannot break a rebuild of the pinned snapshot.)
+ROLLING_BRANCH = {'mpas': 'master', 'rdhpcs': 'main'}
 
 # Per-library tag -> version transform (strips release prefixes the tags carry).
 TAG_VERSION = {
@@ -175,8 +192,8 @@ def api_json(url):
 def latest_ref(library):
     """Resolve the newest ref for --latest: release tag, else newest tag, else branch."""
     config = SNAPSHOT[library]
-    if library == 'mpas':
-        return config['ref']
+    if library in ROLLING_BRANCH:
+        return ROLLING_BRANCH[library]
     try:
         release = api_json(f"https://api.github.com/repos/{config['repo']}/releases/latest")
         if not release.get('draft') and not release.get('prerelease'):
@@ -320,7 +337,7 @@ def main():
             if args.latest:
                 config['ref'] = ref
                 config['commit'] = commit
-                if library == 'mpas':
+                if library in ROLLING_BRANCH:
                     config['version'] = 'snapshot-' + commit[:12]
                 else:
                     config['version'] = tag_version(library, ref)
