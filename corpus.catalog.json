@@ -327,6 +327,17 @@
       "revision": "6534c3e4c6e42480ddaaeec7fd08b712863401d4",
       "url": "https://noaa-gfdl.github.io/FMS/",
       "version_basis": "Official FMS Doxygen site on GitHub Pages (authoritative for the FMS API), which NOAA-GFDL/FMS rebuilds from the repository on each published release; observed built 2026-10-09 from release tag 2026.03 (commit 6534c3e4c6e42480ddaaeec7fd08b712863401d4) when pinned; includes the Doxygen API reference generated only on the rendered site; a later crawl after a new release would describe that release"
+    },
+    {
+      "name": "rdhpcs-docs",
+      "path": "corpus/rdhpcs/source",
+      "library": "rdhpcs",
+      "version": "snapshot-833f834a7afb",
+      "kind": "documentation",
+      "managed": true,
+      "revision": "833f834a7afb3506c8e48c5261c89c68a2d55567",
+      "url": "https://github.com/NOAA-RDHPCS/noaa-rdhpcs.github.io/blob/833f834a7afb3506c8e48c5261c89c68a2d55567/source",
+      "version_basis": "Rolling main snapshot of NOAA-RDHPCS/noaa-rdhpcs.github.io, the Sphinx source of https://docs.rdhpcs.noaa.gov/ (the authoritative RDHPCS user documentation); the repository has no release tags, so the label is the commit and it is not release-certified; CC0-1.0 license retained beside the corpus; system-specific details (Hera, Jet, Gaea, Ursa, ...) change quickly, so verify against the live site before relying on them"
     }
   ]
 }

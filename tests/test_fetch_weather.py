@@ -10,7 +10,7 @@ from knowledge import LIBRARIES, build, markup_sections
 
 
 WEATHER_LIBRARIES = ('dask', 'dask-jobqueue', 'ecflow', 'ufs-weather-model',
-                     'mom6', 'cice', 'fv3', 'mpas', 'grib2io', 'uwtools', 'fms')
+                     'mom6', 'cice', 'fv3', 'mpas', 'grib2io', 'uwtools', 'fms', 'rdhpcs')
 RENDERED_LIBRARIES = {'mom6', 'uwtools', 'fms'}
 
 
@@ -85,6 +85,20 @@ class WeatherRegistrationTests(unittest.TestCase):
         self.assertTrue(mpas['version'].startswith('snapshot-'))
         self.assertEqual(mpas['target_release'], '8.4.2')
         self.assertEqual(mpas['licenses'], [])
+
+    def test_rdhpcs_is_a_pinned_rolling_snapshot(self):
+        import fetch_weather
+
+        rdhpcs = fetch_weather.SNAPSHOT['rdhpcs']
+        self.assertEqual(rdhpcs['repo'], 'NOAA-RDHPCS/noaa-rdhpcs.github.io')
+        self.assertEqual(rdhpcs['doc_dir'], 'source')
+        self.assertEqual(rdhpcs['version'], 'snapshot-' + rdhpcs['commit'][:12])
+        # The ref is the commit itself, so main moving on cannot break a rebuild.
+        self.assertEqual(rdhpcs['ref'], rdhpcs['commit'])
+        self.assertEqual(rdhpcs['licenses'], ['LICENSE'])
+        self.assertEqual(fetch_weather.latest_ref('rdhpcs'), 'main')
+        self.assertEqual(fetch_weather.latest_ref('mpas'), 'master')
+        self.assertNotIn('rdhpcs', FETCHED_LIBRARIES)
 
     def test_tag_to_version_transforms(self):
         import fetch_weather
